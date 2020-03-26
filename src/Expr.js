@@ -109,6 +109,18 @@ var printExpr = function(expr, options) {
       return str
     }
 
+  var printArgs = function(args, toStr) {
+    var length = args.length
+    return args
+      .map(function(value, i) {
+        keyPath.push(i)
+        value = map(toStr(value), keyPath)
+        keyPath.pop()
+        return value + (i === length - 1 ? '' : eol(','))
+      })
+      .join('')
+  }
+
   var printArray = function(array, toStr) {
     if (!array.length) {
       return '[]'
@@ -192,7 +204,9 @@ var printExpr = function(expr, options) {
       keyPath.push(key)
       var arg = expr[key]
       var value = map(
-        fn === 'Let' && key === 'let'
+        fn + key === 'Dodo'
+          ? printArgs(arg.raw, printExpr)
+          : fn + key === 'Letlet'
           ? Array.isArray(arg)
             ? printArray(arg, printObject)
             : printObject(arg)
