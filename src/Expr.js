@@ -63,7 +63,7 @@ var indent = function(input) {
   }
   let indent = ''
   for (let i = 0; i < 2 * printDepth; i++) {
-    indent += i % 2 ? ' ' : '・'
+    indent += i % 2 ? '' : '・'
   }
   return indent + input
 }
