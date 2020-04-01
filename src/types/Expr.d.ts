@@ -44,7 +44,7 @@ export type Lambda<In extends any[] = any[], Out = any> = (
   ...args: In
 ) => Expr<Out>
 
-export interface Collection<T> {
+export interface Collection<T extends object> {
   ref: Expr.CollectionRef<T>
   ts: number
   name: string
@@ -54,7 +54,7 @@ export interface Collection<T> {
   ttl_days?: number
 }
 
-export interface Document<T> {
+export interface Document<T extends object> {
   data: T
   ref: Expr.DocumentRef<T>
   ts: number
@@ -66,7 +66,7 @@ export interface Page<T> {
   after?: string
 }
 
-export interface Index<T> {
+export interface Index<T extends object> {
   ref: Expr.IndexRef<T>
   ts: number
   name: string
@@ -81,7 +81,7 @@ export interface Index<T> {
   permissions?: object
 }
 
-export interface Function<T> {
+export interface Function<T extends object> {
   ref: Expr.FunctionRef<T>
   ts: number
   name: string
@@ -96,10 +96,14 @@ export namespace Expr {
     private _refType: T
   }
 
-  export interface DocumentRef<T> extends Ref<Document<T>> {}
-  export interface CollectionRef<T> extends Ref<Collection<T>> {}
-  export interface SetRef<T> extends Ref<Document<T>[]> {}
-  export interface IndexRef<T> extends Ref<Index<T>> {}
+  export interface DocumentRef<T extends object> extends Ref<Document<T>> {}
+
+  export interface SetRef<T extends object> extends Ref<Document<T>[]> {}
+
+  export interface CollectionRef<T extends object> extends Ref<Collection<T>> {}
+
+  export interface IndexRef<T extends object> extends Ref<Index<T>> {}
+
   export interface FunctionRef<T> extends Ref<Function<T>> {}
 
   export interface Time extends Expr<values.FaunaTime> {}
