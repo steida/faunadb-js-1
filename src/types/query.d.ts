@@ -164,7 +164,7 @@ export module query {
   export function Prepend(elements: ExprArg, collection: ExprArg): Expr
   export function Append(elements: ExprArg, collection: ExprArg): Expr
 
-  export function IsEmpty(collection: Expr.Iterable<any>): Expr<boolean>
+  export function IsEmpty(collection: Expr.Iterable): Expr<boolean>
 
   // TODO
   export function IsNonEmpty(collection: ExprArg): Expr
