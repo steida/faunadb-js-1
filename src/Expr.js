@@ -157,6 +157,9 @@ var printExpr = function(expr, options) {
   }
 
   var printObject = function(obj) {
+    if (obj instanceof Expr) {
+      obj = obj.raw
+    }
     var keys = Object.keys(obj)
     var length = keys.length
     if (!length) {
