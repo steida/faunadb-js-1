@@ -73,7 +73,10 @@ var eol = function(input) {
 }
 
 var isCompact = function(expr) {
-  return !(expr instanceof Expr)
+  return (
+    !(expr instanceof Expr) &&
+    !(expr && typeof expr == 'object' && !Array.isArray(expr))
+  )
 }
 
 var printExpr = function(expr, options) {
