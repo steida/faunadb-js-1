@@ -404,9 +404,9 @@ export module query {
   // TODO
   export function Contains(path: ExprArg, _in: ExprArg): Expr
 
-  export function Select<T>(
-    path: Expr.KeyPath,
-    from: Expr<object>,
+  export function Select<T = any>(
+    path: ExprVal<string | number> | Expr.KeyPath,
+    from: ExprVal<object>,
     _default?: ExprVal<T>
   ): ToExpr<T>
 
