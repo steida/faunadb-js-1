@@ -212,13 +212,14 @@ var printExpr = function(expr, options) {
         arg = arg.raw
       }
       var value = map(
-        fn + key === 'Dodo'
-          ? printArgs(arg.raw, printExpr)
-          : fn + key === 'Letlet'
-          ? Array.isArray(arg)
-            ? printArray(arg, printObject)
-            : printObject(arg)
-          : printExpr(arg, options),
+        (key == fn.toLowerCase() &&
+          (varArgsFunctions.indexOf(fn) >= 0
+            ? printArgs(arg, printExpr)
+            : fn == 'Let' &&
+              (Array.isArray(arg)
+                ? printArray(arg, printObject)
+                : printObject(arg)))) ||
+          printExpr(arg, options),
         keyPath
       )
       keyPath.pop()
