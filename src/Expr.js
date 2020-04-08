@@ -208,6 +208,9 @@ var printExpr = function(expr, options) {
     return keys.map(function(key, i) {
       keyPath.push(key)
       var arg = expr[key]
+      if (arg instanceof Expr) {
+        arg = arg.raw
+      }
       var value = map(
         fn + key === 'Dodo'
           ? printArgs(arg.raw, printExpr)
