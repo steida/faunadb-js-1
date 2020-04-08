@@ -112,12 +112,12 @@ var printExpr = function(expr, options) {
       return str
     }
 
-  var printArgs = function(args, toStr) {
+  var printArgs = function(args) {
     var length = args.length
     return args
       .map(function(arg, i) {
         keyPath.push(i)
-        arg = map(toStr(arg), keyPath)
+        arg = map(printExpr(arg, options), keyPath)
         keyPath.pop()
         if (i < length - 1) {
           arg += eol(',')
@@ -217,7 +217,7 @@ var printExpr = function(expr, options) {
       var value = map(
         (key == fn.toLowerCase() &&
           (varArgsFunctions.indexOf(fn) >= 0
-            ? printArgs(arg, printExpr)
+            ? printArgs(arg)
             : fn == 'Let' &&
               (Array.isArray(arg)
                 ? printArray(arg, printObject)
