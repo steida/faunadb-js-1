@@ -112,11 +112,14 @@ var printExpr = function(expr, options) {
   var printArgs = function(args, toStr) {
     var length = args.length
     return args
-      .map(function(value, i) {
+      .map(function(arg, i) {
         keyPath.push(i)
-        value = map(toStr(value), keyPath)
+        arg = map(toStr(arg), keyPath)
         keyPath.pop()
-        return value + (i === length - 1 ? '' : eol(','))
+        if (i < length - 1) {
+          arg += eol(',')
+        }
+        return i > 0 ? indent(arg) : arg
       })
       .join('')
   }
