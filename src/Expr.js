@@ -128,7 +128,11 @@ var printExpr = function(expr, options) {
     if (!array.length) {
       return '[]'
     }
-    return (
+    var wasCompact = compact
+    if (!wasCompact) {
+      compact = array.every(isCompact)
+    }
+    var str =
       eol('[') +
       indent(function() {
         var length = array.length
@@ -142,19 +146,14 @@ var printExpr = function(expr, options) {
           .join('')
       }) +
       indent(']')
-    )
+    compact = wasCompact
+    return str
   }
 
   if (Array.isArray(expr)) {
-    var wasCompact = compact
-    if (!wasCompact) {
-      compact = expr.every(isCompact)
-    }
-    var out = printArray(expr, function(item) {
+    return printArray(expr, function(item) {
       return printExpr(item, options)
     })
-    compact = wasCompact
-    return out
   }
 
   var printObject = function(obj) {
